@@ -864,36 +864,50 @@ h2 {
   font-size: 13px;
   margin: 15px 0 0;
 }
-.member--join {
+.team-join {
+  margin-top: 14px;
   background: var(--ink);
   color: #fff;
-  padding: 28px;
+  padding: 14px 20px;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 22px;
+}
+.team-join-mark {
   display: flex;
-  flex-direction: column;
-  min-height: 520px;
+  align-items: center;
+  gap: 9px;
+  color: #aaa;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
 }
 .join-symbol {
   font:
-    300 72px/1 Manrope,
+    300 42px/1 Manrope,
     sans-serif;
   color: #efb400;
 }
-.member--join > span {
-  margin-top: auto;
-  color: #aaa;
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
+.team-join-copy h3 {
+  margin: 0;
+  font:
+    500 20px/1.1 Manrope,
+    sans-serif;
 }
-.member--join > p {
+.team-join-copy p {
+  margin: 5px 0 0;
   color: #aaa;
+  font-size: 12px;
+  line-height: 1.45;
 }
-.member--join > a {
-  margin-top: 28px;
-  border-top: 1px solid #555;
-  padding-top: 18px;
+.team-join > a {
+  min-width: 140px;
+  padding: 12px 0 12px 18px;
+  border-left: 1px solid #555;
   display: flex;
   justify-content: space-between;
+  gap: 20px;
   font-weight: 600;
   font-size: 13px;
 }
@@ -1125,9 +1139,6 @@ footer p {
 }
 .team-scene .member-photo {
   aspect-ratio: 16/10;
-}
-.team-scene .member--join {
-  min-height: 0;
 }
 .team-scene .member-meta {
   margin: 12px 0;
@@ -1438,10 +1449,6 @@ footer p {
   .testimonial-card:nth-child(2) {
     margin-top: 0;
   }
-  .member--join {
-    grid-column: 1/-1;
-    min-height: 400px;
-  }
   .contact-main {
     grid-template-columns: 1fr;
     gap: 65px;
@@ -1541,9 +1548,16 @@ footer p {
   .members-grid {
     grid-template-columns: 1fr;
   }
-  .member--join {
-    grid-column: auto;
-    min-height: 360px;
+  .team-join {
+    grid-template-columns: 1fr;
+    gap: 14px;
+    padding: 20px;
+  }
+  .team-join > a {
+    min-width: 0;
+    padding: 14px 0 0;
+    border-top: 1px solid #555;
+    border-left: 0;
   }
   .quote {
     padding-block: 90px;

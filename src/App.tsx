@@ -266,9 +266,11 @@ function App() {
   const sectionMembers = members.filter((member) =>
     member.sections.includes(activeTeamSection),
   );
-  const teamItems = [...sectionMembers, null];
-  const teamPageCount = Math.max(1, Math.ceil(teamItems.length / teamPageSize));
-  const visibleTeamItems = teamItems.slice(
+  const teamPageCount = Math.max(
+    1,
+    Math.ceil(sectionMembers.length / teamPageSize),
+  );
+  const visibleTeamItems = sectionMembers.slice(
     teamPage * teamPageSize,
     (teamPage + 1) * teamPageSize,
   );
@@ -878,49 +880,47 @@ function App() {
                 aria-labelledby={`team-tab-${activeTeamSection}`}
                 key={`${activeTeamSection}-${teamPage}-${teamPageSize}`}
               >
-                {visibleTeamItems.map((member, index) =>
-                  member ? (
-                    <article
-                      className="member"
-                      key={`${member.name}-${teamPage}-${index}`}
+                {visibleTeamItems.map((member, index) => (
+                  <article
+                    className="member"
+                    key={`${member.name}-${teamPage}-${index}`}
+                  >
+                    <div
+                      className={
+                        member.photo
+                          ? "member-photo"
+                          : "member-photo member-photo--empty"
+                      }
                     >
-                      <div
-                        className={
-                          member.photo
-                            ? "member-photo"
-                            : "member-photo member-photo--empty"
-                        }
-                      >
-                        {member.photo && (
-                          <img src={member.photo} alt={member.name} />
-                        )}
-                      </div>
-                      <div className="member-meta">
-                        <span>{member.year}</span>
-                        <span>{member.role}</span>
-                      </div>
-                      <h3>{member.name}</h3>
-                      <p>{member.description}</p>
-                    </article>
-                  ) : (
-                    <article
-                      className="member member--join"
-                      key={`join-${index}`}
-                    >
-                      <div className="join-symbol">+</div>
-                      <span>Ty?</span>
-                      <h3>Dołącz do zespołu</h3>
-                      <p>
-                        Studiujesz i chcesz dzielić się wiedzą? Napisz do nas -
-                        zawsze chętnie poznajemy nowych ludzi.
-                      </p>
-                      <a href="mailto:eduwi@agh.edu.pl?subject=Chcę dołączyć do zespołu EduWI">
-                        Napisz do nas
-                      </a>
-                    </article>
-                  ),
-                )}
+                      {member.photo && (
+                        <img src={member.photo} alt={member.name} />
+                      )}
+                    </div>
+                    <div className="member-meta">
+                      <span>{member.year}</span>
+                      <span>{member.role}</span>
+                    </div>
+                    <h3>{member.name}</h3>
+                    <p>{member.description}</p>
+                  </article>
+                ))}
               </div>
+              <article className="team-join">
+                <div className="team-join-mark">
+                  <span className="join-symbol">+</span>
+                  <span>Ty?</span>
+                </div>
+                <div className="team-join-copy">
+                  <h3>Dołącz do zespołu</h3>
+                  <p>
+                    Studiujesz i chcesz dzielić się wiedzą? Napisz do nas -
+                    zawsze chętnie poznajemy nowych ludzi.
+                  </p>
+                </div>
+                <a href="mailto:eduwi@agh.edu.pl?subject=Chcę dołączyć do zespołu EduWI">
+                  Napisz do nas <span aria-hidden="true">→</span>
+                </a>
+              </article>
             </div>
           </div>
         </section>
