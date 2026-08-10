@@ -86,8 +86,11 @@ a {
 .contact-scene {
   --scene-bg: var(--paper);
 }
+.intro-scene {
+  height: 155vh;
+}
 .subject-scene {
-  height: 220vh;
+  height: 160vh;
 }
 .subject-scene--it {
   --scene-bg: var(--green);
@@ -97,7 +100,7 @@ a {
 }
 .learning-scene {
   --scene-bg: var(--ink);
-  height: 210vh;
+  height: 165vh;
 }
 .quote-scene {
   --scene-bg: var(--green);
@@ -105,7 +108,10 @@ a {
 }
 .testimonials-scene {
   --scene-bg: var(--green);
-  height: 190vh;
+  height: 155vh;
+}
+.groups-scene {
+  height: 160vh;
 }
 .contact-scene {
   height: 175vh;

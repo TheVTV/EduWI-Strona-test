@@ -292,7 +292,7 @@ function App() {
       if (scene.classList.contains("hero-scene")) return;
       const steps = Array.from(
         scene.querySelectorAll<HTMLElement>(
-          ".eyebrow, h1, .hero-copy, .hero-actions, .hero-visual, .section-label, .split > *, .stats > div, .subject-head > *, .subject-feature, .feature, .extras, .group, .team-carousel, .testimonials-head > *, .testimonial-card, .contact-main > *, .scene-footer > *",
+          ".eyebrow, h1, .hero-copy, .hero-actions, .hero-visual, .section-label, .split > *, .stats > div, .subject-head > *, .subject-feature, .feature, .extras, .group, .team-carousel, .testimonials-head > *, .testimonial-card, .contact-main > *",
         ),
       );
       steps.forEach((step, index) => {
@@ -321,7 +321,34 @@ function App() {
             item.dataset.sceneStart = cascadeStart;
             item.style.setProperty("--scene-delay", `${index * 120}ms`);
           });
+
+          if (container.classList.contains("feature-grid")) {
+            const extras = scene.querySelector<HTMLElement>(".extras");
+            if (extras) {
+              extras.dataset.sceneStart = cascadeStart;
+              extras.style.setProperty("--scene-delay", "0ms");
+            }
+          }
         });
+
+      [
+        [".stats", ":scope > div"],
+        [".testimonials-grid", ":scope > .testimonial-card"],
+      ].forEach(([containerSelector, itemSelector]) => {
+        const container = scene.querySelector<HTMLElement>(containerSelector);
+        if (!container) return;
+
+        const cascadeItems = Array.from(
+          container.querySelectorAll<HTMLElement>(itemSelector),
+        );
+        if (cascadeItems.length < 2) return;
+
+        const cascadeStart = cascadeItems[0].dataset.sceneStart || "0";
+        cascadeItems.forEach((item, index) => {
+          item.dataset.sceneStart = cascadeStart;
+          item.style.setProperty("--scene-delay", `${index * 140}ms`);
+        });
+      });
     });
 
     let frame = 0;
