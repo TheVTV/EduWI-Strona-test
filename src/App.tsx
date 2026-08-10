@@ -303,6 +303,25 @@ function App() {
             : 0.1 + (index - 2) * (0.68 / Math.max(steps.length - 2, 1));
         step.dataset.sceneStart = start.toFixed(3);
       });
+
+      scene
+        .querySelectorAll<HTMLElement>(
+          ".subject-features, .feature-grid, .group-list",
+        )
+        .forEach((container) => {
+          const cascadeItems = Array.from(
+            container.querySelectorAll<HTMLElement>(
+              ":scope > .subject-feature, :scope > .feature, :scope > .group",
+            ),
+          );
+          if (cascadeItems.length !== 4) return;
+
+          const cascadeStart = cascadeItems[0].dataset.sceneStart || "0";
+          cascadeItems.forEach((item, index) => {
+            item.dataset.sceneStart = cascadeStart;
+            item.style.setProperty("--scene-delay", `${index * 120}ms`);
+          });
+        });
     });
 
     let frame = 0;

@@ -38,6 +38,7 @@ a {
 .motion-ready .scene-step.scene-step--visible {
   opacity: 1;
   transform: translate3d(0, 0, 0);
+  transition-delay: var(--scene-delay, 0ms);
   will-change: auto;
 }
 .parallax-section {
