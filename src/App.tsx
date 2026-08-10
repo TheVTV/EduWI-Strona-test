@@ -32,46 +32,46 @@ const groups = [
 const features = [
   [
     "01",
-    "Wykłady",
-    "Hybrydowo na Wydziale Informatyki AGH i online. Wiedza podana jasno, z miejscem na pytania.",
+    "Ćwiczenia",
+    "Cotygodniowa praktyka w małych grupach, zdalnie lub stacjonarnie w Krakowie - zależnie od wybranej grupy.",
   ],
   [
     "02",
-    "Ćwiczenia",
-    "Cotygodniowa praktyka w małych grupach, zdalnie lub stacjonarnie - zależnie od wybranej grupy.",
-  ],
-  [
-    "03",
     "Materiały",
     "Autorskie zadania, prezentacje i materiały dostępne dla wszystkich uczestników kursu.",
   ],
   [
-    "04",
+    "03",
     "Próbna matura",
-    "Pełna symulacja egzaminu, która pozwala sprawdzić wiedzę i oswoić się z formułą matury.",
+    "Pełna symulacja egzaminu (tak, nawet stacjonarnie), która pozwala sprawdzić wiedzę i oswoić się z formułą matury.",
+  ],
+  [
+    "04",
+    "Konsultacje",
+    "Masz jakieś pytania lub wątpliwości? Nasi prowadzący są dostępni dla ciebie i zawsze chętnie pomogą.",
   ],
 ];
 
 const itFeatures = [
   [
     "01",
-    "Jakieś pierwsze coś",
-    "Placeholder. Placeholder. Placeholder. Placeholder. Placeholder. Placeholder. Placeholder. ",
+    "Język programowania",
+    "Do wyboru - Python albo C++. To ty decydujesz, w jakim języku programowania chcesz się u nas rozwijać!",
   ],
   [
     "02",
-    "Jakieś drugie coś",
-    "Placeholder. Placeholder. Placeholder. Placeholder. Placeholder. Placeholder. Placeholder. .",
+    "Zadania domowe",
+    "Pakiet zadań do wszystkich zagadnień przygotowany specjalnie od nas - do samodzielnych przygotowań i powtórek.",
   ],
   [
     "03",
-    "Jakieś trzecie coś",
-    "Placeholder. Placeholder. Placeholder. Placeholder. Placeholder. Placeholder. Placeholder. ",
+    "Prowadzący",
+    'Studenci "AGH-owskiej Informatyki" z doświadczeniem w algorytmice i zadaniach typu maturalnego - dostępni dla ciebie! U nas nie ma "głupich" pytań, mogą być tylko "głupie" odpowiedzi ;)',
   ],
   [
     "04",
-    "Jakieś czwarte coś",
-    "Placeholder. Placeholder. Placeholder. Placeholder. Placeholder. Placeholder. Placeholder. ",
+    "psEduWIDE",
+    "Już nie musisz tylko wierzyć, że twój pseudokod działa - możesz się o tym przekonać z pomocą naszego autorskiego programu!",
   ],
 ];
 
@@ -123,13 +123,31 @@ const sheets = [
     ],
   },
 ];
-const members = [
+const teamSections = [
+  { id: "zarzad", label: "Zarząd" },
+  { id: "koordynatorzy", label: "Koordynatorzy" },
+  { id: "prowadzacy-informatyka", label: "Prowadzący · Informatyka" },
+  { id: "prowadzacy-matematyka", label: "Prowadzący · Matematyka" },
+  { id: "opieka-wsparcie", label: "Opieka i wsparcie" },
+] as const;
+
+type TeamSectionId = (typeof teamSections)[number]["id"];
+
+const members: Array<{
+  name: string;
+  role: string;
+  year: string;
+  description: string;
+  photo: string;
+  sections: TeamSectionId[];
+}> = [
   {
     name: "Piotr Polański",
     role: "Przewodniczący",
     year: "III rok",
     description: "Tutaj opis.",
     photo: "https://eduwi.edu.pl/assets/piotr-Bz7rdzJL.jpg",
+    sections: ["zarzad"],
   },
   {
     name: "Bartosz Wójcik",
@@ -137,6 +155,7 @@ const members = [
     year: "IV rok",
     description: "Tutaj opis.",
     photo: "https://eduwi.edu.pl/assets/bartek-Bb_3GmFV.jpg",
+    sections: ["zarzad"],
   },
   {
     name: "Krzysztof Kopel",
@@ -144,6 +163,7 @@ const members = [
     year: "IV rok",
     description: "Tutaj opis.",
     photo: "",
+    sections: ["zarzad"],
   },
   {
     name: "Test Testowy",
@@ -151,14 +171,7 @@ const members = [
     year: "-I rok",
     description: "Tutaj opis.",
     photo: "",
-  },
-
-  {
-    name: "Test Testowy",
-    role: "Podwładny",
-    year: "-I rok",
-    description: "Tutaj opis.",
-    photo: "",
+    sections: ["koordynatorzy", "prowadzacy-informatyka"],
   },
 
   {
@@ -167,6 +180,7 @@ const members = [
     year: "-I rok",
     description: "Tutaj opis.",
     photo: "",
+    sections: ["koordynatorzy"],
   },
 
   {
@@ -175,6 +189,7 @@ const members = [
     year: "-I rok",
     description: "Tutaj opis.",
     photo: "",
+    sections: ["prowadzacy-informatyka"],
   },
 
   {
@@ -183,6 +198,7 @@ const members = [
     year: "-I rok",
     description: "Tutaj opis.",
     photo: "",
+    sections: ["prowadzacy-informatyka"],
   },
 
   {
@@ -191,6 +207,16 @@ const members = [
     year: "-I rok",
     description: "Tutaj opis.",
     photo: "",
+    sections: ["prowadzacy-matematyka"],
+  },
+
+  {
+    name: "Test Testowy",
+    role: "Podwładny",
+    year: "-I rok",
+    description: "Tutaj opis.",
+    photo: "",
+    sections: ["prowadzacy-matematyka"],
   },
   {
     name: "Test Testowy",
@@ -198,6 +224,7 @@ const members = [
     year: "-I rok",
     description: "Tutaj opis.",
     photo: "",
+    sections: ["opieka-wsparcie"],
   },
 ];
 const testimonials = [
@@ -221,6 +248,8 @@ const testimonials = [
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("start");
+  const [activeTeamSection, setActiveTeamSection] =
+    useState<TeamSectionId>("zarzad");
   const [teamPage, setTeamPage] = useState(0);
   const [teamPageSize, setTeamPageSize] = useState(() => {
     if (window.matchMedia("(max-width: 560px)").matches) return 1;
@@ -231,7 +260,13 @@ function App() {
   const sheetsHref = `${homeHref}?page=arkusze`;
   const isSheetsPage =
     new URLSearchParams(window.location.search).get("page") === "arkusze";
-  const teamItems = [...members, null];
+  const activeTeamSectionLabel =
+    teamSections.find((section) => section.id === activeTeamSection)?.label ||
+    "Zarząd";
+  const sectionMembers = members.filter((member) =>
+    member.sections.includes(activeTeamSection),
+  );
+  const teamItems = [...sectionMembers, null];
   const teamPageCount = Math.max(1, Math.ceil(teamItems.length / teamPageSize));
   const visibleTeamItems = teamItems.slice(
     teamPage * teamPageSize,
@@ -766,9 +801,10 @@ function App() {
               className="team-carousel"
               role="region"
               aria-roledescription="karuzela"
-              aria-label="Członkowie koła"
+              aria-label={`Członkowie koła — ${activeTeamSectionLabel}`}
               tabIndex={0}
               onKeyDown={(event) => {
+                if ((event.target as HTMLElement).closest(".team-tabs")) return;
                 if (event.key === "ArrowLeft") {
                   setTeamPage((page) => Math.max(0, page - 1));
                 }
@@ -778,34 +814,70 @@ function App() {
               }}
             >
               <div className="team-carousel-controls">
-                <span aria-live="polite">
-                  {String(teamPage + 1).padStart(2, "0")} /{" "}
-                  {String(teamPageCount).padStart(2, "0")}
-                </span>
-                <div>
-                  <button
-                    type="button"
-                    aria-label="Poprzednie osoby"
-                    disabled={teamPage === 0}
-                    onClick={() => setTeamPage((page) => Math.max(0, page - 1))}
-                  >
-                    ←
-                  </button>
-                  <button
-                    type="button"
-                    aria-label="Następne osoby"
-                    disabled={teamPage === teamPageCount - 1}
-                    onClick={() =>
-                      setTeamPage((page) =>
-                        Math.min(teamPageCount - 1, page + 1),
-                      )
-                    }
-                  >
-                    →
-                  </button>
+                <div
+                  className="team-tabs"
+                  role="tablist"
+                  aria-label="Sekcje zespołu"
+                >
+                  {teamSections.map((section) => (
+                    <button
+                      id={`team-tab-${section.id}`}
+                      type="button"
+                      role="tab"
+                      aria-selected={activeTeamSection === section.id}
+                      aria-controls="team-members-panel"
+                      tabIndex={activeTeamSection === section.id ? 0 : -1}
+                      className={
+                        activeTeamSection === section.id ? "active" : ""
+                      }
+                      key={section.id}
+                      onClick={() => {
+                        setActiveTeamSection(section.id);
+                        setTeamPage(0);
+                      }}
+                    >
+                      {section.label}
+                    </button>
+                  ))}
+                </div>
+                <div className="team-pagination">
+                  <span aria-live="polite">
+                    {String(teamPage + 1).padStart(2, "0")} /{" "}
+                    {String(teamPageCount).padStart(2, "0")}
+                  </span>
+                  <div className="team-arrows">
+                    <button
+                      type="button"
+                      aria-label="Poprzednie osoby"
+                      disabled={teamPage === 0}
+                      onClick={() =>
+                        setTeamPage((page) => Math.max(0, page - 1))
+                      }
+                    >
+                      ←
+                    </button>
+                    <button
+                      type="button"
+                      aria-label="Następne osoby"
+                      disabled={teamPage === teamPageCount - 1}
+                      onClick={() =>
+                        setTeamPage((page) =>
+                          Math.min(teamPageCount - 1, page + 1),
+                        )
+                      }
+                    >
+                      →
+                    </button>
+                  </div>
                 </div>
               </div>
-              <div className="members-grid" key={`${teamPage}-${teamPageSize}`}>
+              <div
+                id="team-members-panel"
+                className="members-grid"
+                role="tabpanel"
+                aria-labelledby={`team-tab-${activeTeamSection}`}
+                key={`${activeTeamSection}-${teamPage}-${teamPageSize}`}
+              >
                 {visibleTeamItems.map((member, index) =>
                   member ? (
                     <article
